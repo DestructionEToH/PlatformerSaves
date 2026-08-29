@@ -1,5 +1,5 @@
 #pragma once
-#include <sabe.persistenceapi/include/PersistenceAPI.hpp>
+#include <geode.support/persistenceapi/PersistenceAPI.hpp>
 
 class CheckpointGameObjectReference {
 public:
