@@ -15,25 +15,19 @@ jobs:
         config:
         - name: Windows
           os: windows-latest
-          platform: win
+          target: Win64
         - name: Android32
           os: ubuntu-latest
-          platform: android32
+          target: Android32
         - name: Android64
           os: ubuntu-latest
-          platform: android64
+          target: Android64
 
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
 
     steps:
     - uses: actions/checkout@v4
-
-    - name: Set up Android NDK
-      if: matrix.config.platform == 'android32' || matrix.config.platform == 'android64'
-      uses: nttld/setup-ndk@v1
-      with:
-        ndk-version: r26b
 
     - name: Fetch PersistenceAPI
       shell: bash
@@ -46,6 +40,6 @@ jobs:
       uses: geode-sdk/build-geode-mod@main
       with:
         bindings: geode-sdk/bindings
-        bindings-ref: v5
+        bindings-ref: main
         combine: true
-        platform: ${{ matrix.config.platform }}
+        target: ${{ matrix.config.target }}
