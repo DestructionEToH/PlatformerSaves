@@ -20,43 +20,23 @@ jobs:
         repository: '0x5abe/PersistenceAPI'
         path: 'PersistenceAPI'
 
-    - name: Setup Geode CLI
-      uses: geode-sdk/build-geode-mod@main
-      with:
-        bindings: geode-sdk/bindings
-        bindings-ref: main
-        combine: false
-        sdk: v5.4.1
+    - name: Setup CMake
+      uses: lukka/get-cmake@latest
 
-    - name: Force Native Build Command
+    - name: Install Geode CLI Natively
       shell: bash
       run: |
+        curl -L -o geode-cli.zip https://github.com
+        unzip geode-cli.zip -d geode-cli-dir
+        echo "$(pwd)/geode-cli-dir" >> $GITHUB_PATH
+
+    - name: Configure and Build Mod
+      shell: bash
+      run: |
+        export GEODE_SDK="$USERPROFILE/Documents/Geode"
+        geode sdk install-binaries
+        geode sdk switch v5.4.1
         geode build -p windows
-
-  build-android32:
-    name: Build Android32
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Download PersistenceAPI Source
-      uses: actions/checkout@v4
-      with:
-        repository: '0x5abe/PersistenceAPI'
-        path: 'PersistenceAPI'
-
-    - name: Setup Geode CLI
-      uses: geode-sdk/build-geode-mod@main
-      with:
-        bindings: geode-sdk/bindings
-        bindings-ref: main
-        combine: false
-        sdk: v5.4.1
-
-    - name: Force Native Build Command
-      shell: bash
-      run: |
-        geode build -p android32
 
   build-android64:
     name: Build Android64
@@ -70,15 +50,26 @@ jobs:
         repository: '0x5abe/PersistenceAPI'
         path: 'PersistenceAPI'
 
-    - name: Setup Geode CLI
-      uses: geode-sdk/build-geode-mod@main
+    - name: Set up Android NDK
+      uses: nttld/setup-ndk@v1
       with:
-        bindings: geode-sdk/bindings
-        bindings-ref: main
-        combine: false
-        sdk: v5.4.1
+        ndk-version: r26b
 
-    - name: Force Native Build Command
+    - name: Setup CMake
+      uses: lukka/get-cmake@latest
+
+    - name: Install Geode CLI Natively
       shell: bash
       run: |
+        curl -L -o geode-cli.zip https://github.com
+        unzip geode-cli.zip -d geode-cli-dir
+        chmod +x geode-cli-dir/geode
+        echo "$(pwd)/geode-cli-dir" >> $GITHUB_PATH
+
+    - name: Configure and Build Mod
+      shell: bash
+      run: |
+        export GEODE_SDK="$HOME/Documents/Geode"
+        geode sdk install-binaries
+        geode sdk switch v5.4.1
         geode build -p android64
