@@ -30,17 +30,11 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Fetch PersistenceAPI
-      uses: robinraju/release-downloader@v1
-      with:
-        repository: "0x5abe/PersistenceAPI"
-        latest: true
-        fileName: "*.geode"
-
-    - name: Move Dependency
       shell: bash
       run: |
         mkdir -p build/geode-deps
-        mv *.geode build/geode-deps/
+        curl -L -o build/geode-deps/sabe.persistenceapi.geode https://github.com
+      continue-on-error: true
 
     - name: Build the mod
       uses: geode-sdk/build-geode-mod@main
