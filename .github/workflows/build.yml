@@ -15,13 +15,13 @@ jobs:
         config:
         - name: Windows
           os: windows-latest
-          platform: windows
+          target: win
         - name: Android32
           os: ubuntu-latest
-          platform: android32
+          target: android32
         - name: Android64
           os: ubuntu-latest
-          platform: android64
+          target: android64
 
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
@@ -35,14 +35,10 @@ jobs:
         repository: '0x5abe/PersistenceAPI'
         path: 'PersistenceAPI'
 
-    - name: Setup Official Geode Environment
+    - name: Build the mod
       uses: geode-sdk/build-geode-mod@main
       with:
         bindings: geode-sdk/bindings
-        bindings-ref: main
-        combine: false
-
-    - name: Compile Mod via Native Command
-      shell: bash
-      run: |
-        geode build --platform ${{ matrix.config.platform }}
+        bindings-ref: v5
+        combine: true
+        target: ${{ matrix.config.target }}
