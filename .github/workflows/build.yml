@@ -8,9 +8,24 @@ on:
       - master
 
 jobs:
-  build-windows:
-    name: Build Windows
-    runs-on: windows-latest
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - name: Windows
+          os: windows-latest
+          target: win
+        - name: Android32
+          os: ubuntu-latest
+          target: android32
+        - name: Android64
+          os: ubuntu-latest
+          target: android64
+
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+
     steps:
     - uses: actions/checkout@v4
 
@@ -26,47 +41,4 @@ jobs:
         bindings: geode-sdk/bindings
         bindings-ref: main
         combine: true
-        target: Win64
-        sdk: v5.4.1
-
-  build-android32:
-    name: Build Android32
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Download PersistenceAPI Source
-      uses: actions/checkout@v4
-      with:
-        repository: '0x5abe/PersistenceAPI'
-        path: 'PersistenceAPI'
-
-    - name: Build the mod
-      uses: geode-sdk/build-geode-mod@main
-      with:
-        bindings: geode-sdk/bindings
-        bindings-ref: main
-        combine: true
-        target: Android32
-        sdk: v5.4.1
-
-  build-android64:
-    name: Build Android64
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Download PersistenceAPI Source
-      uses: actions/checkout@v4
-      with:
-        repository: '0x5abe/PersistenceAPI'
-        path: 'PersistenceAPI'
-
-    - name: Build the mod
-      uses: geode-sdk/build-geode-mod@main
-      with:
-        bindings: geode-sdk/bindings
-        bindings-ref: main
-        combine: true
-        target: Android64
-        sdk: v5.4.1
+        target: ${{ matrix.config.target }}
