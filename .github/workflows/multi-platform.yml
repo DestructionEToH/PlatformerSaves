@@ -48,13 +48,14 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
   
-      - name: Fetch PersistenceAPI
-        uses: actions/download-artifact@v4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: 0x5abe/PersistenceAPI
-          run-id: ${{ fromJSON(steps.list-workflows.outputs.workflows).workflow_runs[0].id }}
-
+          - name: Fetch PersistenceAPI
+      uses: robinraju/release-downloader@v1
+      with:
+        repository: "0x5abe/PersistenceAPI"
+        latest: true
+        fileName: "*.geode"
+        out-file: "build/geode-deps"
+        
       - name: Extract in geode-deps
         shell: bash
         run: |
