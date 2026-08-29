@@ -30,8 +30,6 @@ target_compile_options(${PROJECT_NAME} PRIVATE "-Wno-microsoft-include")
 target_compile_options(${PROJECT_NAME} PRIVATE "-Wno-invalid-offsetof")
 target_include_directories(${PROJECT_NAME} PRIVATE src/)
 
-find_package(Geode REQUIRED)
-
-include(${Geode_CMAKE_DIR}/GeodeMod.cmake)
+include($ENV{GEODE_SDK}/cmake/GeodeMod.cmake)
 
 setup_geode_mod(${PROJECT_NAME})
