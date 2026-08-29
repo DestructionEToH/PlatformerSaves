@@ -15,10 +15,12 @@ jobs:
         config:
         - name: Windows
           os: windows-latest
-          target: win
+        - name: Android32
+          os: ubuntu-latest
+          target: Android32
         - name: Android64
           os: ubuntu-latest
-          target: android64
+          target: Android64
 
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
@@ -32,18 +34,10 @@ jobs:
         repository: '0x5abe/PersistenceAPI'
         path: 'PersistenceAPI'
 
-    - name: Set up Android NDK
-      if: matrix.config.target == 'android64'
-      uses: nttld/setup-ndk@v1
+    - name: Build the mod
+      uses: geode-sdk/build-geode-mod@main
       with:
-        ndk-version: r26b
-
-    - name: Install Geode CLI
-      uses: geode-sdk/setup-geode@main
-      with:
-        sdk: v5.4.1
-
-    - name: Compile Mod via Native CLI
-      shell: bash
-      run: |
-        geode build -p ${{ matrix.config.target }}
+        bindings: geode-sdk/bindings
+        bindings-ref: main
+        combine: true
+        target: ${{ matrix.config.target }}
