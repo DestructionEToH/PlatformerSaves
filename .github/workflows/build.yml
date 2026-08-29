@@ -8,39 +8,21 @@ on:
       - master
 
 jobs:
-  build-windows:
-    name: Build Windows
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v4
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - name: Windows
+          os: windows-latest
+          target: win
+        - name: Android64
+          os: ubuntu-latest
+          target: android64
 
-    - name: Download PersistenceAPI Source
-      uses: actions/checkout@v4
-      with:
-        repository: '0x5abe/PersistenceAPI'
-        path: 'PersistenceAPI'
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
 
-    - name: Setup CMake
-      uses: lukka/get-cmake@latest
-
-    - name: Install Geode CLI Natively
-      shell: bash
-      run: |
-        curl -L -o geode-cli.zip https://github.com
-        unzip geode-cli.zip -d geode-cli-dir
-        echo "$(pwd)/geode-cli-dir" >> $GITHUB_PATH
-
-    - name: Configure and Build Mod
-      shell: bash
-      run: |
-        export GEODE_SDK="$USERPROFILE/Documents/Geode"
-        geode sdk install-binaries
-        geode sdk switch v5.4.1
-        geode build -p windows
-
-  build-android64:
-    name: Build Android64
-    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
 
@@ -51,25 +33,17 @@ jobs:
         path: 'PersistenceAPI'
 
     - name: Set up Android NDK
+      if: matrix.config.target == 'android64'
       uses: nttld/setup-ndk@v1
       with:
         ndk-version: r26b
 
-    - name: Setup CMake
-      uses: lukka/get-cmake@latest
+    - name: Install Geode CLI
+      uses: geode-sdk/setup-geode@main
+      with:
+        sdk: v5.4.1
 
-    - name: Install Geode CLI Natively
+    - name: Compile Mod via Native CLI
       shell: bash
       run: |
-        curl -L -o geode-cli.zip https://github.com
-        unzip geode-cli.zip -d geode-cli-dir
-        chmod +x geode-cli-dir/geode
-        echo "$(pwd)/geode-cli-dir" >> $GITHUB_PATH
-
-    - name: Configure and Build Mod
-      shell: bash
-      run: |
-        export GEODE_SDK="$HOME/Documents/Geode"
-        geode sdk install-binaries
-        geode sdk switch v5.4.1
-        geode build -p android64
+        geode build -p ${{ matrix.config.target }}
