@@ -11,6 +11,11 @@ jobs:
   build-windows:
     name: Build Windows
     runs-on: windows-latest
+    env:
+      GEODE_TARGET_PLATFORM: win
+      GEODE_PLATFORM: win
+      PLATFORM: win
+      TARGET: win
     steps:
     - uses: actions/checkout@v4
 
@@ -26,12 +31,17 @@ jobs:
         bindings: geode-sdk/bindings
         bindings-ref: main
         combine: true
-        platform: windows
+        target: win
         sdk: v5.4.1
 
   build-android32:
     name: Build Android32
     runs-on: ubuntu-latest
+    env:
+      GEODE_TARGET_PLATFORM: android32
+      GEODE_PLATFORM: android32
+      PLATFORM: android32
+      TARGET: android32
     steps:
     - uses: actions/checkout@v4
 
@@ -47,12 +57,17 @@ jobs:
         bindings: geode-sdk/bindings
         bindings-ref: main
         combine: true
-        platform: android32
+        target: android32
         sdk: v5.4.1
 
   build-android64:
     name: Build Android64
     runs-on: ubuntu-latest
+    env:
+      GEODE_TARGET_PLATFORM: android64
+      GEODE_PLATFORM: android64
+      PLATFORM: android64
+      TARGET: android64
     steps:
     - uses: actions/checkout@v4
 
@@ -68,5 +83,5 @@ jobs:
         bindings: geode-sdk/bindings
         bindings-ref: main
         combine: true
-        platform: android64
+        target: android64
         sdk: v5.4.1
