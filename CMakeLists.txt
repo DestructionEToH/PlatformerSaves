@@ -30,11 +30,6 @@ target_compile_options(${PROJECT_NAME} PRIVATE "-Wno-microsoft-include")
 target_compile_options(${PROJECT_NAME} PRIVATE "-Wno-invalid-offsetof")
 target_include_directories(${PROJECT_NAME} PRIVATE src/)
 
-# This line MUST come right before include() to pass the platform variables
-set(GEODE_TARGET_PLATFORM ${GEODE_TARGET_PLATFORM})
-
 include($ENV{GEODE_SDK}/cmake/GeodeMod.cmake)
 
-add_subdirectory(PersistenceAPI)
-
-setup_geode_mod(${PROJECT_NAME} DEPENDS sabe.persistenceapi)
+setup_geode_mod(${PROJECT_NAME})
