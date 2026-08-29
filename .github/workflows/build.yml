@@ -43,4 +43,4 @@ jobs:
         bindings-ref: main
         combine: true
         platform: ${{ matrix.config.platform }}
-        sdk: v5.0.0
+        sdk: v5.0.3
