@@ -11,11 +11,6 @@ jobs:
   build-windows:
     name: Build Windows
     runs-on: windows-latest
-    env:
-      GEODE_TARGET_PLATFORM: win
-      GEODE_PLATFORM: win
-      PLATFORM: win
-      TARGET: win
     steps:
     - uses: actions/checkout@v4
 
@@ -25,23 +20,22 @@ jobs:
         repository: '0x5abe/PersistenceAPI'
         path: 'PersistenceAPI'
 
-    - name: Build the mod
+    - name: Setup Geode CLI
       uses: geode-sdk/build-geode-mod@main
       with:
         bindings: geode-sdk/bindings
         bindings-ref: main
-        combine: true
-        target: win
+        combine: false
         sdk: v5.4.1
+
+    - name: Force Native Build Command
+      shell: bash
+      run: |
+        geode build -p windows
 
   build-android32:
     name: Build Android32
     runs-on: ubuntu-latest
-    env:
-      GEODE_TARGET_PLATFORM: android32
-      GEODE_PLATFORM: android32
-      PLATFORM: android32
-      TARGET: android32
     steps:
     - uses: actions/checkout@v4
 
@@ -51,23 +45,22 @@ jobs:
         repository: '0x5abe/PersistenceAPI'
         path: 'PersistenceAPI'
 
-    - name: Build the mod
+    - name: Setup Geode CLI
       uses: geode-sdk/build-geode-mod@main
       with:
         bindings: geode-sdk/bindings
         bindings-ref: main
-        combine: true
-        target: android32
+        combine: false
         sdk: v5.4.1
+
+    - name: Force Native Build Command
+      shell: bash
+      run: |
+        geode build -p android32
 
   build-android64:
     name: Build Android64
     runs-on: ubuntu-latest
-    env:
-      GEODE_TARGET_PLATFORM: android64
-      GEODE_PLATFORM: android64
-      PLATFORM: android64
-      TARGET: android64
     steps:
     - uses: actions/checkout@v4
 
@@ -77,11 +70,15 @@ jobs:
         repository: '0x5abe/PersistenceAPI'
         path: 'PersistenceAPI'
 
-    - name: Build the mod
+    - name: Setup Geode CLI
       uses: geode-sdk/build-geode-mod@main
       with:
         bindings: geode-sdk/bindings
         bindings-ref: main
-        combine: true
-        target: android64
+        combine: false
         sdk: v5.4.1
+
+    - name: Force Native Build Command
+      shell: bash
+      run: |
+        geode build -p android64
