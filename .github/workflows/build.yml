@@ -15,13 +15,13 @@ jobs:
         config:
         - name: Windows
           os: windows-latest
-          target: Win
+          platform: win
         - name: Android32
           os: ubuntu-latest
-          target: Android32
+          platform: android32
         - name: Android64
           os: ubuntu-latest
-          target: Android64
+          platform: android64
 
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
@@ -30,7 +30,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Set up Android NDK
-      if: matrix.config.target == 'Android32' || matrix.config.target == 'Android64'
+      if: matrix.config.platform == 'android32' || matrix.config.platform == 'android64'
       uses: nttld/setup-ndk@v1
       with:
         ndk-version: r26b
@@ -46,6 +46,6 @@ jobs:
       uses: geode-sdk/build-geode-mod@main
       with:
         bindings: geode-sdk/bindings
-        bindings-ref: main
+        bindings-ref: v5
         combine: true
-        target: ${{ matrix.config.target }}
+        platform: ${{ matrix.config.platform }}
