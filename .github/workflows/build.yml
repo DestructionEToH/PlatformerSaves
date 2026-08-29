@@ -29,12 +29,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Fetch PersistenceAPI
+    - name: Clone PersistenceAPI Source
       shell: bash
       run: |
-        mkdir -p build/geode-deps
-        curl -L -o build/geode-deps/sabe.persistenceapi.geode https://github.com
-      continue-on-error: true
+        git clone https://github.com PersistenceAPI
 
     - name: Build the mod
       uses: geode-sdk/build-geode-mod@main
