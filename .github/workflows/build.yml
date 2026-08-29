@@ -1,0 +1,47 @@
+name: Build Geode Mod
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - name: Windows
+          os: windows-latest
+          target: Win
+        - name: Android32
+          os: ubuntu-latest
+          target: Android32
+        - name: Android64
+          os: ubuntu-latest
+          target: Android64
+
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Fetch PersistenceAPI
+      uses: robinraju/release-downloader@v1
+      with:
+        repository: "0x5abe/PersistenceAPI"
+        latest: true
+        fileName: "*.geode"
+        out-file: "build/geode-deps"
+
+    - name: Build the mod
+      uses: geode-sdk/build-geode-mod@main
+      with:
+        bindings: geode-sdk/bindings
+        bindings-ref: main
+        combine: true
+        target: ${{ matrix.config.target }}
+
