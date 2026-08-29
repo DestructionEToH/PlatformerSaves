@@ -35,8 +35,12 @@ jobs:
         repository: "0x5abe/PersistenceAPI"
         latest: true
         fileName: "*.geode"
-        out-dir: "build/geode-deps"
 
+    - name: Move Dependency
+      shell: bash
+      run: |
+        mkdir -p build/geode-deps
+        mv *.geode build/geode-deps/
 
     - name: Build the mod
       uses: geode-sdk/build-geode-mod@main
@@ -45,4 +49,3 @@ jobs:
         bindings-ref: main
         combine: true
         target: ${{ matrix.config.target }}
-
