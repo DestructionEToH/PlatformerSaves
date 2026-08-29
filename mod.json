@@ -1,15 +1,15 @@
 {
-	"geode": "4.9.0",
+	"geode": "5.0.0",
 	"gd": {
-		"win": "2.2074",
-		"android": "2.2074",
-		"mac": "2.2074",
-		"ios": "2.2074"
+		"win": "2.2081",
+		"android": "2.2081",
+		"mac": "2.2081",
+		"ios": "2.2081"
 	},
-	"version": "v1.1.2",
-	"id": "sabe.platformersaves",
+	"version": "v1.1.3",
+	"id": "destructionetoh.platformersaves",
 	"name": "PlatformerSaves",
-	"developer": "Sabe",
+	"developer": "DestructionEToH",
 	"description": "Save and load your progress in platformer levels!",
 	"repository": "https://github.com/0x5abe/PlatformerSaves",
 	"resources": {
