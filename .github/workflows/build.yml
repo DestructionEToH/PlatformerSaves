@@ -15,13 +15,13 @@ jobs:
         config:
         - name: Windows
           os: windows-latest
-          platform: windows
+          target: win
         - name: Android32
           os: ubuntu-latest
-          platform: android32
+          target: android32
         - name: Android64
           os: ubuntu-latest
-          platform: android64
+          target: android64
 
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
@@ -41,5 +41,5 @@ jobs:
         bindings: geode-sdk/bindings
         bindings-ref: main
         combine: true
-        platform: ${{ matrix.config.platform }}
+        target: ${{ matrix.config.target }}
         sdk: v5.4.1
