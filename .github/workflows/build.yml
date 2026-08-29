@@ -35,7 +35,8 @@ jobs:
         repository: "0x5abe/PersistenceAPI"
         latest: true
         fileName: "*.geode"
-        out-file: "build/geode-deps"
+        out-dir: "build/geode-deps"
+
 
     - name: Build the mod
       uses: geode-sdk/build-geode-mod@main
