@@ -1,5 +1,5 @@
 {
-	"geode": "5.0.0",
+	"geode": ">=5.0.0",
 	"gd": {
 		"win": "2.2081",
 		"android": "2.2081",
@@ -11,7 +11,7 @@
 	"name": "PlatformerSaves",
 	"developer": "DestructionEToH",
 	"description": "Save and load your progress in platformer levels!",
-	"repository": "https://github.com/0x5abe/PlatformerSaves",
+	"repository": "https://github.com/DestructionEToH/PlatformerSaves",
 	"resources": {
 		"sprites": [
 			"resources/saveButton.png"
@@ -37,7 +37,7 @@
 			"importance": "required"
 		},
 		"sabe.persistenceapi": {
-			"version": "v1.1.0",
+			"version": ">=v1.1.0",
 			"importance": "required"
 		}
     },
