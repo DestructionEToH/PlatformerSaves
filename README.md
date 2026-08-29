@@ -4,7 +4,7 @@
 
 <img src="./logo.png" alt="PlatformerSaves logo" />
 
-PlatformerSaves is a Geometry Dash mod for [Geode](https://geode-sdk.org/) that allows you to save and load your progress in platformer levels.
+PlatformerSaves is a Geometry Dash mod for [Geode](https://geode-sdk.org/) that allows you to save and load your progress in platformer levels. The mod was originally created by 0x5abe, and updated to later versions by DestructionEToH.
 
 ## Features
 
@@ -16,9 +16,7 @@ Pick up right where you left off and enjoy taking breaks without having to leave
 
 ## Possible future features
 
-- Multiple save slots
-- Cloud saves
-- Better UI
+- None currently
 
 ## Known bugs
 
@@ -29,12 +27,7 @@ Pick up right where you left off and enjoy taking breaks without having to leave
 
 ## Report a bug
 
-You can report a bug by [creating an issue](https://github.com/0x5abe/PlatformerSaves/issues), before creating one please make sure it isn't a duplicate (no one else reported it)
+You can report a bug by [creating an issue](https://github.com/DestructionEToH/PlatformerSaves/issues), before creating one please make sure it isn't a duplicate (no one else reported it)
 
 ## Credits
-
-- The Geode team for the amazing tool they've created and inspiring me to make GD mods
-- Nikki for help with bindings
-- Maromalo for testing and suggestions
-- Gtxripmxt for ios testing
-- Memtheturtle for mac testing
+- Sabe for the original version
